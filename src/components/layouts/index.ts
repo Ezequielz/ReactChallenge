@@ -1,0 +1,2 @@
+
+export { PokedexLayout } from './PokedexLayout'
