@@ -1,3 +1,4 @@
+
 import { Gallery } from './components/pokemons'
 
 function App () {

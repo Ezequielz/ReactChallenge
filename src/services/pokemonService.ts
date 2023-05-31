@@ -3,25 +3,24 @@ import { pokeApi } from '../api'
 import { Pokemon, PokemonFullResponse, PokemonListResponse } from '../interfaces/pokemons'
 
 export const getAllPokemons = async () => {
-  const { data } = await pokeApi.get<PokemonListResponse>('/pokemon?limit=100000')
+  const { data } = await pokeApi.get<PokemonListResponse>('/pokemon?limit=10')
+  const pokemonList: Pokemon[] = []
 
-  const newList = data.results.map(async (pokemon, index) => {
-    const { abilities, name, sprites, weight } = await getPokemonInfo(pokemon.name)
-
-    const newPokemon: Pokemon = {
-      id: index + 1,
-      abilities,
+  for (const result of data.results) {
+    const { name } = result
+    const pokeInfo = await getPokemonInfo(name)
+    const pokemonData = {
       name,
-      sprites,
-      weight
+      ...pokeInfo
     }
-    return newPokemon
-  })
+    pokemonList.push(pokemonData)
+  }
 
-  return newList
+  return pokemonList
 }
 
 export const getPokemonInfo = async (nameOrId: string) => {
   const { data } = await pokeApi.get<PokemonFullResponse>(`/pokemon/${nameOrId}`)
-  return data
+  const { abilities, sprites, weight, id } = data
+  return { id, abilities, sprites, weight }
 }
