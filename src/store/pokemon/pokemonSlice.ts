@@ -7,6 +7,7 @@ interface PokemonState {
   isLoading: boolean
   types: Species[]
   filters: string[]
+  selected: string[]
   search: string
 }
 
@@ -16,6 +17,7 @@ const initialState: PokemonState = {
   isLoading: false,
   types: [],
   filters: [],
+  selected: [],
   search: ''
 }
 
@@ -23,7 +25,7 @@ export const pokemonSlice = createSlice({
   name: 'pokemon',
   initialState,
   reducers: {
-    loadingPokemons: (state /* action */) => {
+    loadingPokemons: (state) => {
       state.isLoading = true
     },
     setPokemons: (state, action) => {
@@ -41,6 +43,9 @@ export const pokemonSlice = createSlice({
     setSearch: (state, action) => {
       state.search = action.payload
     },
+    setSelected: (state, action) => {
+      state.selected = action.payload
+    },
     nextPage: (state) => {
       state.offset += 20
     },
@@ -52,10 +57,11 @@ export const pokemonSlice = createSlice({
 
 export const {
   loadingPokemons,
+  setFilters,
   setPokemons,
   setPokemonsTypes,
-  setFilters,
   setSearch,
+  setSelected,
   nextPage,
   prevPage
 } = pokemonSlice.actions

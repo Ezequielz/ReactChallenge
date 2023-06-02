@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 /* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { Pokemon, Species } from '../../interfaces/pokemons'
 import { getPokemons, getPokemonsTypes } from '../../services/pokemonService'
 import { setPokemons, loadingPokemons, setPokemonsTypes } from './pokemonSlice'
@@ -9,16 +10,16 @@ export const startGetPokemons = () => {
     dispatch(loadingPokemons())
 
     let pokemons: Pokemon[]
-    // const oldPokemonsData = getState().pokemons.pokemons
-    const pokemonsInLocalStorage = JSON.parse(localStorage.getItem('pokemons') ?? '')
+    let pokemonsInStorage: string[] = []
+    if (localStorage.getItem('deletedPokemons')) {
+      pokemonsInStorage = JSON.parse(localStorage.getItem('deletedPokemons')!)
+    }
 
     try {
       pokemons = await getPokemons()
-      // pokemons = [...oldPokemonsData, ...pokemons]
-
-      if (pokemonsInLocalStorage) {
+      if (pokemonsInStorage) {
         const filteredPokemons = pokemons.filter((pokemon) => {
-          return !pokemonsInLocalStorage.some((filter: Pokemon) => filter.id === pokemon.id)
+          return !pokemonsInStorage.some((filter: string) => filter === pokemon.name)
         })
         pokemons = filteredPokemons
       }
