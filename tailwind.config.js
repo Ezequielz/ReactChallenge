@@ -9,8 +9,9 @@ export default {
   theme: {
     extend: {},
     fontFamily: {
-      'pokemon': 'pokemon'
+      'pokemon': 'pokemon',
+      'Ysabeau': 'Ysabeau'
     },
   },
-  plugins: [],
+  plugins: [require("tw-elements/dist/plugin.cjs")],
 }

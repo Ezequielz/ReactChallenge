@@ -1,18 +1,48 @@
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Pokemon } from '../../interfaces/pokemons'
-import { getAllPokemons } from '../../services/pokemonService'
-import { setPokemons, startLoadingPokemons } from './pokemonSlice'
+import { Pokemon, Species } from '../../interfaces/pokemons'
+import { getPokemons, getPokemonsTypes } from '../../services/pokemonService'
+import { setPokemons, loadingPokemons, setPokemonsTypes } from './pokemonSlice'
 
-export const getPokemons = (page = 0) => {
+export const startGetPokemons = () => {
   return async (dispatch: any) => {
-    dispatch(startLoadingPokemons())
-    let data: Pokemon[]
-    try {
-      data = await getAllPokemons()
-    } catch (error) {
-      data = []
-    }
+    dispatch(loadingPokemons())
 
-    dispatch(setPokemons({ pokemons: data, page: page + 1 }))
+    let pokemons: Pokemon[]
+    // const oldPokemonsData = getState().pokemons.pokemons
+    const pokemonsInLocalStorage = JSON.parse(localStorage.getItem('pokemons') ?? '')
+
+    try {
+      pokemons = await getPokemons()
+      // pokemons = [...oldPokemonsData, ...pokemons]
+
+      if (pokemonsInLocalStorage) {
+        const filteredPokemons = pokemons.filter((pokemon) => {
+          return !pokemonsInLocalStorage.some((filter: Pokemon) => filter.id === pokemon.id)
+        })
+        pokemons = filteredPokemons
+      }
+
+      dispatch(setPokemons({ pokemons }))
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
+export const startGetPokemonsTypes = () => {
+  return async (dispatch: any) => {
+    dispatch(loadingPokemons())
+
+    let types: Species[]
+    try {
+      types = await getPokemonsTypes()
+      if (types) {
+        localStorage.setItem('pokemonsTypes', JSON.stringify(types))
+        dispatch(setPokemonsTypes({ types }))
+      }
+    } catch (error) {
+      console.log(error)
+    }
   }
 }

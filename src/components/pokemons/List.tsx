@@ -1,10 +1,12 @@
+
 import { Card } from '.'
-import { useAppSelector } from '../../hooks'
+import { usePokemons } from '../../hooks'
 
 export const List = () => {
-  const { pokemons } = useAppSelector(state => state.pokemons)
+  const { pokemons } = usePokemons()
+
   return (
-    <div className='grid grid-cols-8 gap-5 py-5'>
+    <div className='grid grid-cols-2 lg:grid-cols-5 gap-5 py-5'>
       {pokemons.map(pokemon => (
         <Card key={pokemon.id} pokemon={pokemon} />
       ))}

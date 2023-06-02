@@ -9,7 +9,7 @@ interface Props {
 
 export const PokedexLayout: FC<Props> = ({ children }) => {
   return (
-    <div className='font-pokemon min-h-screen '>
+    <div className='font-Ysabeau min-h-screen '>
       <header>
         <Navbar />
       </header>

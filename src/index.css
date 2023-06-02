@@ -1,8 +1,7 @@
-
+@import url('https://fonts.googleapis.com/css2?family=Ysabeau:ital,wght@1,300&display=swap');
 @font-face {
   font-family: 'pokemon';
-  src: url('/fonts/Pokemon-Hollow.ttf'),
-       url('/fonts/Pokemon-Solid.ttf');
+  src: url('/fonts/Pokemon-Solid.ttf');
   font-weight: bold
 }
 @tailwind base;

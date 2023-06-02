@@ -27,9 +27,16 @@ export interface PokemonListResponse {
   results: Pokemon[]
 }
 
+export interface TypesResponse {
+  count: number
+  next: null
+  previous: null
+  results: Species[]
+}
+
 export interface Pokemon {
   id: number
-  abilities: Ability[]
+  types: Type[]
   name: string
   sprites: Sprites
   weight: number

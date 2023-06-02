@@ -11,7 +11,7 @@ export const Switch = () => {
             theme === 'light'
               ? (
                 <button
-                  className='transition duration-300 hover:scale-[1.2] '
+                  className='transition duration-300 hover:scale-[1.2] text-slate-800 dark:text-slate-100'
                   onClick={handleTheme}
                 >
 
@@ -20,7 +20,7 @@ export const Switch = () => {
                 )
               : (
                 <button
-                  className='transition duration-300 rotate rotate-90 hover:scale-[1.2] hover:text-yellow'
+                  className='transition duration-300 rotate rotate-90 hover:scale-[1.2] text-slate-800 dark:text-slate-100'
                   onClick={handleTheme}
                 >
 
