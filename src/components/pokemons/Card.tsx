@@ -24,7 +24,7 @@ export const Card: FC<Props> = ({ pokemon }) => {
     }
   }
   return (
-    <div
+    <article
       className='group/card hoover:hidden block rounded-lg bg-white shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-slate-700'
     >
       <div className='relative'>
@@ -38,9 +38,9 @@ export const Card: FC<Props> = ({ pokemon }) => {
         />
       </div>
       <label htmlFor={`${pokemon.name}`} className='cursor-pointer'>
-        <div className='px-6 py-2'>
+        <div className='px-2 lg:px-6 py-2'>
           <h5
-            className='mb-2 text-xl font-medium font-pokemon tracking-widest text-neutral-800 dark:text-neutral-50 text-center'
+            className='mb-2 text-sm xl:text-xl font-medium font-pokemon tracking-widest text-neutral-800 dark:text-neutral-50 text-center'
           >
             {name}
           </h5>
@@ -64,22 +64,23 @@ export const Card: FC<Props> = ({ pokemon }) => {
 
         <div className='bg-slate-900 p-2 rounded-b-lg text-slate-100'>
           <div className='text-center'>
-            <ul className='flex flex-row justify-center'>
+            <ul className='flex flex-row justify-center gap-1'>
               {pokemon.types.map((type) => (
-                <li key={type.slot} className='ml-2'>
+                <li key={type.slot} className=''>
                   <div
-                    className={`${type.type.name} items-center  rounded-[10px]  px-[10px] py-0 text-sm font-bold tracking-wide`}
+                    className={`${type.type.name} flex items-center  rounded-[10px]   `}
                   >
-                    {type.type.name.charAt(0).toUpperCase() + type.type.name.slice(1)}
+                    <span className='text-xs md:text-md xl:text-lg font-bold tracking-wide px-[10px] py-0'>
+                      {type.type.name.charAt(0).toUpperCase() + type.type.name.slice(1)}
+                    </span>
                   </div>
                 </li>
               ))}
             </ul>
           </div>
-          <span className='flex justify-center font-bold'>Weight: {pokemon.weight}</span>
-          <span className='flex justify-center font-bold'>id: {pokemon.id}</span>
+          <span className='flex justify-center text-xs md:text-md xl:text-lg font-bold'>Weight: {pokemon.weight}</span>
         </div>
       </label>
-    </div>
+    </article>
   )
 }

@@ -5,52 +5,75 @@ import { PokedexLayout } from '../layouts'
 import { List } from './List'
 import { useAppSelector, usePokemons } from '../../hooks'
 import { AiFillDelete, AiFillCaretDown } from 'react-icons/ai'
+import { BsFilterLeft } from 'react-icons/bs'
+import { MdOutlineRestore } from 'react-icons/md'
+import { Loading, Search, SidenavLeft } from '../ui'
 
 export const Gallery = () => {
   const { isLoading, selected, offset } = useAppSelector(state => state.pokemons)
   const { handleDelete, handleReset, pokemonsInStorage, nextPage, allPokemons } = usePokemons()
-  console.log('all', allPokemons.length)
-  console.log('currentPokemons', offset * 20)
   return (
     <PokedexLayout>
-      <div className='px-2 lg:px-32 py-5'>
-        {selected.length > 0 &&
-          <div className='relative'>
+      <div className='px-5 sm:px-10 md:px-20 lg:px-32 py-5'>
+        <header>
+          {/* <h1 className='xs:text-2xl font-bold text-center font-pokemon '>Gallery</h1> */}
+          <div className='w-[100%] sm:w-[40%] mx-auto '>
+            <Search />
+          </div>
+          <div className='flex justify-between items-center sm:mt-[-42px]'>
+            <SidenavLeft />
             <button
-              className='absolute top-0 right-0 flex items-center bg-red-700 text-white px-2 py-1 rounded-md hover:bg-red-600'
-              onClick={handleDelete}
+              className='flex items-center bg-blue-700 text-white px-2 py-1 rounded-md hover:bg-blue-600'
+              data-te-sidenav-toggle-ref
+              data-te-target='#sideLeft'
+              aria-controls='#sideLeft'
+              aria-haspopup='true'
             >
-              Delete Selection
-              <AiFillDelete className='ml-1' />
+              <BsFilterLeft />
+              <span className='hidden xs:block'>Filters</span>
             </button>
-          </div>}
-        {pokemonsInStorage.length > 0 &&
-          <div className='relative'>
-            <button
-              className='absolute flex items-center bg-green-700 text-white px-2 py-1 rounded-md hover:bg-green-600'
-              onClick={handleReset}
-            >
-              Restablecer
-            </button>
-          </div>}
-        <h1 className='text-2xl font-bold text-center font-pokemon'>Gallery</h1>
-        {
-          isLoading
-            ? (<div>Loading...</div>)
-            : (<List />)
-        }
-        <div className='flex justify-center'>
-          {allPokemons.length > (offset * 20)
-            ? (
+            <div className='flex items-center gap-1'>
+              {selected.length > 0 &&
+                <button
+                  className='flex items-center bg-red-700 text-white px-2 py-1 rounded-md hover:bg-red-600'
+                  onClick={handleDelete}
+                >
+                  <AiFillDelete />
+                  <span className='hidden xs:block'>Delete</span>
+                </button>}
+              <div />
+              {pokemonsInStorage.length > 0 &&
+                <button
+                  className=' flex items-center bg-green-700 text-white px-2 py-1 rounded-md hover:bg-green-600'
+                  onClick={handleReset}
+                >
+                  <MdOutlineRestore />
+                  <span className='hidden xs:block'>Restore</span>
+                </button>}
+            </div>
 
-              <button onClick={nextPage} className='flex items-center bg-blue-700 text-white px-2 py-2 rounded-3xl hover:bg-blue-600'>
-                <AiFillCaretDown className='' />
-              </button>
-              )
-            : (
-              <p>No hay mas resultados</p>
-              )}
-        </div>
+          </div>
+        </header>
+        <main>
+          {
+            isLoading
+              ? (<Loading />)
+              : (<List />)
+          }
+        </main>
+        {!isLoading &&
+          <footer className='flex justify-center'>
+            {allPokemons.length > (offset * 20)
+              ? (
+
+                <button onClick={nextPage} className='flex items-center bg-blue-700 text-white px-2 py-2 rounded-3xl hover:bg-blue-600'>
+                  <AiFillCaretDown className='' />
+                </button>
+                )
+              : (
+                <p>No more results</p>
+                )}
+          </footer>}
 
       </div>
     </PokedexLayout>

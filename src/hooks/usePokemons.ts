@@ -62,10 +62,6 @@ export function usePokemons () {
   const nextPage = () => {
     dispatch(setOffset(offset + 1))
   }
-  // const prevPage = () => {
-  //   dispatch(startGetPokemons())
-  // }
-
   return {
     allPokemons: pokemons,
     pokemons: currentPokemons,

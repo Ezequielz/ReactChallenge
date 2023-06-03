@@ -1,6 +1,7 @@
 
 export { Filter } from './Filter'
+export { Loading } from './Loading'
 export { Navbar } from './Navbar'
 export { Search } from './Search'
-export { SidenavRight } from './SidenavRight'
+export { SidenavLeft } from './SidenavLeft'
 export { Switch } from './Switch'
