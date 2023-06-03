@@ -24,7 +24,7 @@ export const Card: FC<Props> = ({ pokemon }) => {
   }
   return (
     <article
-      className='group/card hoover:hidden block rounded-lg bg-white shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-slate-700'
+      className='animate-fade animate-once animate-duration-1000 group/card hoover:hidden block rounded-lg bg-white shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-slate-700'
     >
       <div className='relative'>
         <input
@@ -39,12 +39,12 @@ export const Card: FC<Props> = ({ pokemon }) => {
       <label htmlFor={`${pokemon.name}`} className='cursor-pointer'>
         <div className='px-2 lg:px-6 py-2'>
           <h5
-            className='mb-2 text-sm xl:text-xl font-medium font-pokemon tracking-widest text-neutral-800 dark:text-neutral-50 text-center'
+            className='h-10 mb-2 text-sm xl:text-xl font-medium font-pokemon tracking-widest text-neutral-800 dark:text-neutral-50 text-center'
           >
             {name}
           </h5>
 
-          <div className=' '>
+          <div>
             <img
               className='rounded-t-lg h-32 m-auto group-hover/card:scale-105 group-hover/card:transition-all group-hover/card:hidden'
               src={pokemon.sprites.other['official-artwork'].front_default}
