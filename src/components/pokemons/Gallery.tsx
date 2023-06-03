@@ -12,6 +12,13 @@ import { Loading, Search, SidenavLeft } from '../ui'
 export const Gallery = () => {
   const { isLoading, selected, offset } = useAppSelector(state => state.pokemons)
   const { handleDelete, handleReset, pokemonsInStorage, nextPage, allPokemons } = usePokemons()
+  if (isLoading) {
+    return (
+      <PokedexLayout>
+        <Loading />
+      </PokedexLayout>
+    )
+  }
   return (
     <PokedexLayout>
       <div className='px-5 sm:px-10 md:px-20 lg:px-32 py-5'>
@@ -55,18 +62,14 @@ export const Gallery = () => {
           </div>
         </header>
         <main>
-          {
-            isLoading
-              ? (<Loading />)
-              : (<List />)
-          }
+          <List />
         </main>
         {!isLoading &&
           <footer className='flex justify-center'>
             {allPokemons.length > (offset * 20)
               ? (
 
-                <button onClick={nextPage} className='flex items-center bg-blue-700 text-white px-2 py-2 rounded-3xl hover:bg-blue-600'>
+                <button onClick={nextPage} className='animate-bounce flex items-center bg-blue-700 text-white px-2 py-2 rounded-3xl hover:bg-blue-600'>
                   <AiFillCaretDown className='' />
                 </button>
                 )
