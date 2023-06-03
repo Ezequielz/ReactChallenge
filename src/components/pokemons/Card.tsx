@@ -12,7 +12,6 @@ export const Card: FC<Props> = ({ pokemon }) => {
   const { selected } = useAppSelector(state => state.pokemons)
   const dispatch = useAppDispatch()
   const name = pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.checked) {
       const newSelected = selected.filter(res => {
