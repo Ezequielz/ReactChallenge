@@ -12,7 +12,7 @@ interface PokemonState {
 }
 
 const initialState: PokemonState = {
-  offset: 0,
+  offset: 1,
   pokemons: [],
   isLoading: false,
   types: [],
@@ -30,7 +30,6 @@ export const pokemonSlice = createSlice({
     },
     setPokemons: (state, action) => {
       state.isLoading = false
-      state.offset = action.payload.offset
       state.pokemons = action.payload.pokemons
     },
     setPokemonsTypes: (state, action) => {
@@ -46,6 +45,9 @@ export const pokemonSlice = createSlice({
     setSelected: (state, action) => {
       state.selected = action.payload
     },
+    setOffset: (state, action) => {
+      state.offset = action.payload
+    },
     nextPage: (state) => {
       state.offset += 20
     },
@@ -58,6 +60,7 @@ export const pokemonSlice = createSlice({
 export const {
   loadingPokemons,
   setFilters,
+  setOffset,
   setPokemons,
   setPokemonsTypes,
   setSearch,

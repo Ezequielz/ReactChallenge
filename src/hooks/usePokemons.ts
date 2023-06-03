@@ -2,13 +2,17 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import { useEffect, useState } from 'react'
 import { useAppDispatch, useAppSelector } from '.'
-import { setSelected, startGetPokemons } from '../store/pokemon'
+import { setOffset, setSelected, startGetPokemons } from '../store/pokemon'
+import { Pokemon } from '../interfaces/pokemons'
 
 export function usePokemons () {
   const dispatch = useAppDispatch()
-  const { pokemons: allPokemons, filters, search, selected } = useAppSelector(state => state.pokemons)
+  const { pokemons: allPokemons, filters, search, selected, offset } = useAppSelector(state => state.pokemons)
 
-  const [pokemons, setPokemons] = useState(allPokemons)
+  const [pokemons, setPokemons] = useState<Pokemon[]>([])
+  useEffect(() => {
+    setPokemons(allPokemons)
+  }, [allPokemons])
   useEffect(() => {
     if (filters.length > 0) {
       const filteredPokemons = allPokemons.filter(pokemon => {
@@ -35,6 +39,9 @@ export function usePokemons () {
     }
   }, [search])
 
+  const indexOfLastItem = offset * 20
+  const currentPokemons = pokemons.slice(0, indexOfLastItem)
+
   let pokemonsInStorage: string[] = []
   if (localStorage.getItem('deletedPokemons')) {
     pokemonsInStorage = JSON.parse(localStorage.getItem('deletedPokemons')!)
@@ -53,18 +60,18 @@ export function usePokemons () {
     dispatch(startGetPokemons())
   }
   const nextPage = () => {
-    dispatch(startGetPokemons())
+    dispatch(setOffset(offset + 1))
   }
-  const prevPage = () => {
-    dispatch(startGetPokemons())
-  }
+  // const prevPage = () => {
+  //   dispatch(startGetPokemons())
+  // }
 
   return {
-    pokemons,
+    allPokemons: pokemons,
+    pokemons: currentPokemons,
     pokemonsInStorage,
     handleDelete,
     handleReset,
-    nextPage,
-    prevPage
+    nextPage
   }
 }

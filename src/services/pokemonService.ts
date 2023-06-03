@@ -3,7 +3,7 @@ import { pokeApi } from '../api'
 import { Pokemon, PokemonFullResponse, PokemonListResponse, TypesResponse } from '../interfaces/pokemons'
 
 export const getPokemons = async () => {
-  const { data } = await pokeApi.get<PokemonListResponse>('/pokemon?limit=20&offset=0')
+  const { data } = await pokeApi.get<PokemonListResponse>('/pokemon?limit=120&offset=0')
   const pokemonList: Pokemon[] = []
 
   for (const result of data.results) {

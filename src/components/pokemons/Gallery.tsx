@@ -4,12 +4,13 @@
 import { PokedexLayout } from '../layouts'
 import { List } from './List'
 import { useAppSelector, usePokemons } from '../../hooks'
-import { AiFillDelete } from 'react-icons/ai'
+import { AiFillDelete, AiFillCaretDown } from 'react-icons/ai'
 
 export const Gallery = () => {
-  const { isLoading, selected } = useAppSelector(state => state.pokemons)
-  const { handleDelete, handleReset, pokemonsInStorage, nextPage } = usePokemons()
-
+  const { isLoading, selected, offset } = useAppSelector(state => state.pokemons)
+  const { handleDelete, handleReset, pokemonsInStorage, nextPage, allPokemons } = usePokemons()
+  console.log('all', allPokemons.length)
+  console.log('currentPokemons', offset * 20)
   return (
     <PokedexLayout>
       <div className='px-2 lg:px-32 py-5'>
@@ -39,7 +40,16 @@ export const Gallery = () => {
             : (<List />)
         }
         <div className='flex justify-center'>
-          <button onClick={nextPage}>Load more</button>
+          {allPokemons.length > (offset * 20)
+            ? (
+
+              <button onClick={nextPage} className='flex items-center bg-blue-700 text-white px-2 py-2 rounded-3xl hover:bg-blue-600'>
+                <AiFillCaretDown className='' />
+              </button>
+              )
+            : (
+              <p>No hay mas resultados</p>
+              )}
         </div>
 
       </div>
