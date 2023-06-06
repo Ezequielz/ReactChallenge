@@ -15,7 +15,7 @@ export const Search = () => {
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newSearch = e.target.value.trim()
     setPokeSearch(newSearch)
-    debounceSearch(newSearch)
+    debounceSearch(newSearch.toLowerCase())
   }
   return (
     <div className='mb-1'>

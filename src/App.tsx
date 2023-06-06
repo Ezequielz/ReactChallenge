@@ -16,9 +16,9 @@ function App () {
   const { offset, filters, search } = useAppSelector(state => state.pokemons)
 
   useEffect(() => {
-    if (filters.length > 0) {
+    if (filters.length > 0 && search === '') {
       dispatch(startGetPokemonsWhithTypes(offset))
-    } else if (search !== '' && filters.length === 0) {
+    } else if (search !== '') {
       dispatch(startGetPokemonWhithName(search))
     } else {
       dispatch(startGetPokemons(offset))

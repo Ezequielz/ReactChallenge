@@ -42,6 +42,7 @@ export const startGetPokemonWhithName = (name: string) => {
   return async (dispatch: any) => {
     try {
       const pokemons = [{ name }]
+
       dispatch(setPokemons({ pokemons }))
     } catch (error) {
       console.log(error)
@@ -56,6 +57,12 @@ export const startGetPokemonsWhithTypes = (offset: number) => {
 
     try {
       newPokemons = await getPokemonsWhithTypes(20, offset, types)
+      if (pokemonsInStorage) {
+        const filteredPokemons = newPokemons.filter((pokemon) => {
+          return !pokemonsInStorage.some((filter: string) => filter === pokemon.name)
+        })
+        newPokemons = filteredPokemons
+      }
 
       let pokemons: Generation[] = newPokemons
 
