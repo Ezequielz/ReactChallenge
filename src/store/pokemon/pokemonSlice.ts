@@ -32,12 +32,20 @@ export const pokemonSlice = createSlice({
       state.isLoading = false
       state.pokemons = action.payload.pokemons
     },
+    setPokemonsWhitType: (state, action) => {
+      state.pokemons = action.payload
+    },
     setPokemonsTypes: (state, action) => {
       state.types = action.payload.types
     },
     setFilters: (state, action) => {
-      console.log(action.payload)
       state.filters = action.payload
+      state.offset = 0
+    },
+    deletePokemon: (state, action) => {
+      state.pokemons = state.pokemons.filter(
+        (pokemon) => pokemon.name !== action.payload
+      )
     },
     setSearch: (state, action) => {
       state.search = action.payload
@@ -59,9 +67,11 @@ export const pokemonSlice = createSlice({
 
 export const {
   loadingPokemons,
+  deletePokemon,
   setFilters,
   setOffset,
   setPokemons,
+  setPokemonsWhitType,
   setPokemonsTypes,
   setSearch,
   setSelected,

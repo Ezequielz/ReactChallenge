@@ -10,8 +10,8 @@ import { MdOutlineRestore } from 'react-icons/md'
 import { Loading, Search, SidenavLeft } from '../ui'
 
 export const Gallery = () => {
-  const { isLoading, selected, offset } = useAppSelector(state => state.pokemons)
-  const { handleDelete, handleReset, pokemonsInStorage, nextPage, allPokemons } = usePokemons()
+  const { isLoading, selected } = useAppSelector(state => state.pokemons)
+  const { handleDelete, handleReset, pokemonsInStorage, nextPage } = usePokemons()
   if (isLoading) {
     return (
       <PokedexLayout>
@@ -66,16 +66,11 @@ export const Gallery = () => {
         </main>
         {!isLoading &&
           <footer className='flex justify-center'>
-            {allPokemons.length > (offset * 20)
-              ? (
 
-                <button onClick={nextPage} className='animate-bounce flex items-center bg-blue-700 text-white px-2 py-2 rounded-3xl hover:bg-blue-600'>
-                  <AiFillCaretDown className='' />
-                </button>
-                )
-              : (
-                <p>No more results</p>
-                )}
+            <button onClick={nextPage} className='animate-bounce flex items-center bg-blue-700 text-white px-2 py-2 rounded-3xl hover:bg-blue-600'>
+              <AiFillCaretDown className='' />
+            </button>
+
           </footer>}
 
       </div>
