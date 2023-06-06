@@ -6,6 +6,7 @@ import './card.css'
 import { useAppDispatch, useAppSelector } from '../../hooks'
 import { setSelected } from '../../store/pokemon'
 import { getPokemonInfo } from '../../services/pokemonService'
+import { CardLoader } from '.'
 
 interface Props {
   pokemon: Pokemon
@@ -29,6 +30,12 @@ export const Card: FC<Props> = ({ pokemon }) => {
     } else {
       dispatch(setSelected([...selected, e.target.value]))
     }
+  }
+
+  if (infoPokemon === null) {
+    return (
+      <CardLoader />
+    )
   }
   return (
     <article
