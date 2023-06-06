@@ -17,6 +17,8 @@ pnpm install
 pnpm run dev
 ```
 
+
+Puede ver el proyecto desplegado [AQUI](https://pokedex-devzed.netlify.app/)
 <details>
  <summary>Detalles del Challenge</summary>
 
