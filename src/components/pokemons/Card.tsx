@@ -86,7 +86,7 @@ export const Card: FC<Props> = ({ pokemon }) => {
             </ul>
           </div>
           <span className='flex justify-center text-xs md:text-md xl:text-lg font-bold'>Weight: {infoPokemon?.weight}</span>
-          <span>{infoPokemon?.id}</span>
+          {/* <span>{infoPokemon?.id}</span> */}
         </div>
       </label>
     </article>

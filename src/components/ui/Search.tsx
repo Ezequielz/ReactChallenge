@@ -1,14 +1,21 @@
-import { useAppDispatch, useAppSelector } from '../../hooks'
+import { useAppDispatch } from '../../hooks'
 import { setSearch } from '../../store/pokemon'
+import { useCallback, useState } from 'react'
+import debounce from 'just-debounce-it'
 
 export const Search = () => {
   const dispatch = useAppDispatch()
-  const { search } = useAppSelector(state => state.pokemons)
+  const [pokeSearch, setPokeSearch] = useState('')
+
+  const debounceSearch = useCallback(debounce((dbSearch: string) => {
+    dispatch(setSearch(dbSearch))
+  }, 500)
+  , [])
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault()
-    dispatch(setSearch(e.target.value.trim())
-    )
+    const newSearch = e.target.value.trim()
+    setPokeSearch(newSearch)
+    debounceSearch(newSearch)
   }
   return (
     <div className='mb-1'>
@@ -19,7 +26,7 @@ export const Search = () => {
           placeholder='Search'
           aria-label='Search'
           aria-describedby='button-addon2'
-          value={search}
+          value={pokeSearch}
           onChange={handleSearch}
         />
 

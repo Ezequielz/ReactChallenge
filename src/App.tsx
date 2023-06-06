@@ -19,7 +19,6 @@ function App () {
     if (filters.length > 0) {
       dispatch(startGetPokemonsWhithTypes(offset))
     } else if (search !== '' && filters.length === 0) {
-      console.log('first')
       dispatch(startGetPokemonWhithName(search))
     } else {
       dispatch(startGetPokemons(offset))
