@@ -27,7 +27,7 @@ export function usePokemons () {
     dispatch(startDeletePokemon(selected))
   }
   const handleReset = (e: React.MouseEvent<HTMLButtonElement>) => {
-    // e.preventDefault()
+    e.preventDefault()
     dispatch(setSelected([]))
     dispatch(startRestorePokemons())
   }
