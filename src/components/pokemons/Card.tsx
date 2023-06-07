@@ -20,7 +20,7 @@ export const Card: FC<Props> = ({ pokemon }) => {
       if (res?.id) { setInfoPokemon({ ...res, name: pokemon.name }) } else { setInfoPokemon('not found') }
     })
   }, [])
-  console.log(infoPokemon)
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.checked) {
       const newSelected = selected.filter(res => {
@@ -34,7 +34,7 @@ export const Card: FC<Props> = ({ pokemon }) => {
   if (typeof infoPokemon === 'string') {
     return (
       <h2 className='absolute'>
-       Pokemon whit name:  <span className='font-bold'>' {pokemon.name} '</span> {infoPokemon}
+        Pokemon whit name:  <span className='font-bold'>' {pokemon.name} '</span> {infoPokemon}
       </h2>
     )
   }
