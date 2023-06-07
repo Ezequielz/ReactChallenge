@@ -4,7 +4,7 @@
 import { Generation } from '../../interfaces/pokemonTypeResponse'
 import { Pokemon, Species } from '../../interfaces/pokemons'
 import { getPokemons, getPokemonsTypes, getPokemonsWhithTypes } from '../../services/pokemonService'
-import { setPokemons, loadingPokemons, setPokemonsTypes, deletePokemon, setPokemonsWhitType, setErrors } from './pokemonSlice'
+import { setPokemons, loadingPokemons, setPokemonsTypes, deletePokemon, setPokemonsWhitType } from './pokemonSlice'
 let pokemonsInStorage: string[] = []
 if (localStorage.getItem('deletedPokemons')) {
   pokemonsInStorage = JSON.parse(localStorage.getItem('deletedPokemons')!)
@@ -34,7 +34,6 @@ export const startGetPokemons = (offset: number) => {
       dispatch(setPokemons({ pokemons }))
     } catch (error) {
       console.log(error)
-      dispatch(setErrors(error))
     }
   }
 }

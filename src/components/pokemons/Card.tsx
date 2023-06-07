@@ -1,25 +1,20 @@
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
-import { FC, useEffect, useState } from 'react'
+import { FC } from 'react'
 import { Pokemon } from '../../interfaces/pokemons'
 import './card.css'
-import { useAppDispatch, useAppSelector } from '../../hooks'
+import { useAppDispatch, useAppSelector, usePokemonInfo } from '../../hooks'
 import { setSelected } from '../../store/pokemon'
-import { getPokemonInfo } from '../../services/pokemonService'
 import { CardLoader } from '.'
 
 interface Props {
   pokemon: Pokemon
 }
+
 export const Card: FC<Props> = ({ pokemon }) => {
   const { selected } = useAppSelector(state => state.pokemons)
-  const [infoPokemon, setInfoPokemon] = useState<Pokemon | null | string>(null)
+  const { infoPokemon } = usePokemonInfo(pokemon)
   const dispatch = useAppDispatch()
-  useEffect(() => {
-    getPokemonInfo(pokemon.name).then(res => {
-      if (res?.id) { setInfoPokemon({ ...res, name: pokemon.name }) } else { setInfoPokemon('not found') }
-    })
-  }, [])
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.checked) {
