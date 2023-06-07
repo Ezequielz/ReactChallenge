@@ -15,7 +15,7 @@ export const startGetPokemons = (offset: number) => {
     let pokemonStore = []
     let newPokemons: Pokemon[]
     try {
-      newPokemons = await getPokemons(20 + pokemonsInStorage.length, offset)
+      newPokemons = await getPokemons(20, offset)
       if (pokemonsInStorage) {
         const filteredPokemons = newPokemons.filter((pokemon) => {
           return !pokemonsInStorage.some((filter: string) => filter === pokemon.name)

@@ -7,7 +7,7 @@ import { Pokemon } from '../interfaces/pokemons'
 
 export function usePokemons () {
   const dispatch = useAppDispatch()
-  const { pokemons: allPokemons, selected, offset, errors } = useAppSelector(state => state.pokemons)
+  const { pokemons: allPokemons, selected, offset } = useAppSelector(state => state.pokemons)
 
   const [pokemons, setPokemons] = useState<Pokemon[]>([])
 
@@ -38,7 +38,6 @@ export function usePokemons () {
     allPokemons: pokemons,
     pokemons,
     pokemonsInStorage,
-    errors,
     handleDelete,
     handleReset,
     nextPage
