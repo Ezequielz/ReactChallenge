@@ -39,9 +39,13 @@ export const getPokemonsWhithTypes = async (limit = 20, offset = 21, types: stri
 }
 
 export const getPokemonInfo = async (nameOrId: string) => {
-  const { data } = await pokeApi.get<PokemonFullResponse>(`/pokemon/${nameOrId}`)
-  const { sprites, weight, id, types } = data
-  return { id, sprites, weight, types }
+  try {
+    const { data } = await pokeApi.get<PokemonFullResponse>(`/pokemon/${nameOrId}`)
+    const { sprites, weight, id, types } = data
+    return { id, sprites, weight, types }
+  } catch (error) {
+    console.log(error)
+  }
 }
 
 export const getPokemonsTypes = async () => {

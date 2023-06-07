@@ -9,6 +9,7 @@ interface PokemonState {
   filters: string[]
   selected: string[]
   search: string
+  errors: string | null
 }
 
 const initialState: PokemonState = {
@@ -18,7 +19,8 @@ const initialState: PokemonState = {
   types: [],
   filters: [],
   selected: [],
-  search: ''
+  search: '',
+  errors: null
 }
 
 export const pokemonSlice = createSlice({
@@ -31,9 +33,11 @@ export const pokemonSlice = createSlice({
     setPokemons: (state, action) => {
       state.isLoading = false
       state.pokemons = action.payload.pokemons
+      state.errors = null
     },
     setPokemonsWhitType: (state, action) => {
       state.pokemons = action.payload
+      state.errors = null
     },
     setPokemonsTypes: (state, action) => {
       state.types = action.payload.types
@@ -49,12 +53,16 @@ export const pokemonSlice = createSlice({
     },
     setSearch: (state, action) => {
       state.search = action.payload
+      state.errors = null
     },
     setSelected: (state, action) => {
       state.selected = action.payload
     },
     setOffset: (state, action) => {
       state.offset = action.payload
+    },
+    setErrors: (state, action) => {
+      state.errors = action.payload
     },
     nextPage: (state) => {
       state.offset += 20
@@ -68,6 +76,7 @@ export const pokemonSlice = createSlice({
 export const {
   loadingPokemons,
   deletePokemon,
+  setErrors,
   setFilters,
   setOffset,
   setPokemons,

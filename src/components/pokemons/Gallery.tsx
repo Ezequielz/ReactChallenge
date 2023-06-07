@@ -7,18 +7,12 @@ import { useAppSelector, usePokemons } from '../../hooks'
 import { AiFillDelete, AiFillCaretDown } from 'react-icons/ai'
 import { BsFilterLeft } from 'react-icons/bs'
 import { MdOutlineRestore } from 'react-icons/md'
-import { Loading, Search, SidenavLeft } from '../ui'
+import { Search, SidenavLeft } from '../ui'
 
 export const Gallery = () => {
-  const { isLoading, selected } = useAppSelector(state => state.pokemons)
+  const { isLoading, selected, search } = useAppSelector(state => state.pokemons)
   const { handleDelete, handleReset, pokemonsInStorage, nextPage } = usePokemons()
-  if (isLoading) {
-    return (
-      <PokedexLayout>
-        <Loading />
-      </PokedexLayout>
-    )
-  }
+
   return (
     <PokedexLayout>
       <div className='px-5 sm:px-10 md:px-20 lg:px-32 py-5'>
@@ -64,7 +58,7 @@ export const Gallery = () => {
         <main>
           <List />
         </main>
-        {!isLoading &&
+        {!isLoading && search === '' &&
           <footer className='flex justify-center'>
 
             <button onClick={nextPage} className='animate-bounce flex items-center bg-blue-700 text-white px-2 py-2 rounded-3xl hover:bg-blue-600'>

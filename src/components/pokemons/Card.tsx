@@ -13,14 +13,14 @@ interface Props {
 }
 export const Card: FC<Props> = ({ pokemon }) => {
   const { selected } = useAppSelector(state => state.pokemons)
-  const [infoPokemon, setInfoPokemon] = useState<Pokemon | null>(null)
+  const [infoPokemon, setInfoPokemon] = useState<Pokemon | null | string>(null)
   const dispatch = useAppDispatch()
   useEffect(() => {
     getPokemonInfo(pokemon.name).then(res => {
-      setInfoPokemon({ ...res, name: pokemon.name })
+      if (res?.id) { setInfoPokemon({ ...res, name: pokemon.name }) } else { setInfoPokemon('not found') }
     })
   }, [])
-
+  console.log(infoPokemon)
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.checked) {
       const newSelected = selected.filter(res => {
@@ -30,6 +30,13 @@ export const Card: FC<Props> = ({ pokemon }) => {
     } else {
       dispatch(setSelected([...selected, e.target.value]))
     }
+  }
+  if (typeof infoPokemon === 'string') {
+    return (
+      <h2 className='absolute'>
+       Pokemon whit name:  <span className='font-bold'>' {pokemon.name} '</span> {infoPokemon}
+      </h2>
+    )
   }
 
   if (infoPokemon === null) {

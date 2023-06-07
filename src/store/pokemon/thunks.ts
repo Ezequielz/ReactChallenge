@@ -4,7 +4,7 @@
 import { Generation } from '../../interfaces/pokemonTypeResponse'
 import { Pokemon, Species } from '../../interfaces/pokemons'
 import { getPokemons, getPokemonsTypes, getPokemonsWhithTypes } from '../../services/pokemonService'
-import { setPokemons, loadingPokemons, setPokemonsTypes, deletePokemon, setPokemonsWhitType } from './pokemonSlice'
+import { setPokemons, loadingPokemons, setPokemonsTypes, deletePokemon, setPokemonsWhitType, setErrors } from './pokemonSlice'
 let pokemonsInStorage: string[] = []
 if (localStorage.getItem('deletedPokemons')) {
   pokemonsInStorage = JSON.parse(localStorage.getItem('deletedPokemons')!)
@@ -31,10 +31,10 @@ export const startGetPokemons = (offset: number) => {
       if (pokemonStore) {
         pokemons = [...pokemonStore, ...newPokemons]
       }
-      console.log(pokemons)
       dispatch(setPokemons({ pokemons }))
     } catch (error) {
       console.log(error)
+      dispatch(setErrors(error))
     }
   }
 }
@@ -42,7 +42,6 @@ export const startGetPokemonWhithName = (name: string) => {
   return async (dispatch: any) => {
     try {
       const pokemons = [{ name }]
-
       dispatch(setPokemons({ pokemons }))
     } catch (error) {
       console.log(error)
